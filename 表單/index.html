@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="js/respond.js"></script>
+  <script type="text/javascript"></script>
+  <title>表單問卷</title>
+
+
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">首頁</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">資訊<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">關於我們</a>
+            </li>
+          </ul>
+          <form class="form-inline mt-2 mt-md-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    </header>
+    <form class="form-horizontal">
+      <div class="form-group row">
+        <label for="result" class="col-sm-2 control-label">輸入結果</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="result" placeholder="結果" disabled>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">姓名</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="name" placeholder="輸入姓名" onkeyup="r1()">
+        </div>
+      </div>
+      <fieldset class="form-group">
+        <div class="row">
+          <label legend class="col-form-label col-sm-2 pt-0">性別</legend></label>
+          <div class="col-sm-10">
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="sex" value="male" onclick="r2()"> 男
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="sex" value="female" onclick="r2()"> 女
+            </label>
+          </div>
+        </div>
+      </fieldset>
+      <div class="form-group row">
+        <label for="age" class="col-sm-2 control-label">年齡</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="age" placeholder="請輸入年齡" onkeyup="r3()" onchange="r3()">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="password" class="col-sm-2 col-form-label">輸入密碼</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="password" placeholder="輸入密碼" onkeyup="check(),r4()">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="rePassword" class="col-sm-2 col-form-label">重新輸入</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="rePassword" placeholder="重新輸入密碼"
+            onkeyup="check(),r4()">
+          <input type="checkbox" onclick="showPsd()">顯示密碼
+          <span class="text-danger field-validation-valid" id="msg"></span>
+        </div>
+      </div>
+      <div class="form-group  row ">
+        <label for="class" class="col-sm-2 col-form-label">班級</label>
+        <div class="col-sm-10">
+          <select id="studyClass" class="form-control" onchange="r5()">
+            <option selected>請選班級</option>
+            <option>資工3A</option>
+            <option>資工3B</option>
+            <option>資傳3A</option>
+            <option>資傳3B</option>
+            <option>研一</option>
+          </select>
+        </div>
+      </div>
+
+    </form>
+    <script>
+      var checkStr = "";
+
+      function check() {
+        if (document.getElementById('password').value.length < 6) {
+          checkStr = "please enter at least 6 characters";
+        } else {
+
+          if (document.getElementById('password').value == document.getElementById('rePassword').value) {
+            checkStr = 'matching';
+          } else {
+            checkStr = 'not matching';
+          }
+        }
+        return checkStr;
+      }
+
+      function showPsd() {
+        var x = document.getElementById("password");
+        var y = document.getElementById("rePassword");
+
+        if (x.type == "password") {
+          x.type = "text";
+          y.type = "text";
+        } else {
+          x.type = "password";
+          y.type = "password";
+        }
+      }
+      function allResult() {
+        document.getElementById("result").value =
+          document.getElementsByTagName('label')[1].firstChild.data + ": " +
+          document.getElementById("name").value + ", " +
+          document.getElementsByTagName('label')[2].firstChild.data + ": " +
+          $("#sex:checked").val() + ", " +
+          document.getElementsByTagName('label')[5].firstChild.data + ": " +
+          document.getElementById("age").value + ", " +
+          check() + ", " +
+          document.getElementsByTagName('label')[8].firstChild.data + ": " +
+          $("#studyClass").val() + " ";
+      }
+      function r1() {
+        document.getElementById("result").value =
+          document.getElementsByTagName('label')[1].firstChild.data + ": " +
+          document.getElementById("name").value 
+          ;
+      }
+       function r2() {
+        document.getElementById("result").value =
+          document.getElementsByTagName('label')[1].firstChild.data + ": " +
+          document.getElementById("name").value + ", " +
+          document.getElementsByTagName('label')[2].firstChild.data + ": " +
+          $("#sex:checked").val() ;
+      }
+      function r3() {
+        document.getElementById("result").value =
+          document.getElementsByTagName('label')[1].firstChild.data + ": " +
+          document.getElementById("name").value + ", " +
+          document.getElementsByTagName('label')[2].firstChild.data + ": " +
+          $("#sex:checked").val() + ", " +
+          document.getElementsByTagName('label')[5].firstChild.data + ": " +
+          document.getElementById("age").value 
+          ;
+      }
+      function r4() {
+        document.getElementById("result").value =
+          document.getElementsByTagName('label')[1].firstChild.data + ": " +
+          document.getElementById("name").value + ", " +
+          document.getElementsByTagName('label')[2].firstChild.data + ": " +
+          $("#sex:checked").val() + ", " +
+          document.getElementsByTagName('label')[5].firstChild.data + ": " +
+          document.getElementById("age").value + ", " +
+          check() ;
+      }
+      function r5() {
+        document.getElementById("result").value =
+          document.getElementsByTagName('label')[1].firstChild.data + ": " +
+          document.getElementById("name").value + ", " +
+          document.getElementsByTagName('label')[2].firstChild.data + ": " +
+          $("#sex:checked").val() + ", " +
+          document.getElementsByTagName('label')[5].firstChild.data + ": " +
+          document.getElementById("age").value + ", " +
+          check() + ", " +
+          document.getElementsByTagName('label')[8].firstChild.data + ": " +
+          $("#studyClass").val() + " ";
+      }
+    </script>
+
+  </div>
+
+  <script src="js/jquery-4.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+
+</html>
